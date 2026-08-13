@@ -1,0 +1,172 @@
+/* ============================================================
+   ABOUT PAGE
+   ------------------------------------------------------------
+   Three patterns the rest of the site does not already have:
+   the figures strip, the alternating credential rows and the
+   team portrait grid. Everything else on /about reuses the
+   shared section, tile and CTA styles.
+   ============================================================ */
+
+/* ---------- Figures strip -------------------------------- */
+
+.stats-band {
+  padding: var(--space-2xl) 0;
+  border-top: 1px solid var(--line-divider);
+  border-bottom: 1px solid var(--line-divider);
+  background: var(--surface-card);
+}
+
+.stats-band__grid {
+  display: grid;
+  gap: var(--space-xl);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .stats-band__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+.stat__value {
+  font-size: var(--fs-section-title);
+  line-height: var(--lh-section-title);
+  font-weight: var(--fw-light);
+  color: var(--text-accent);
+}
+
+.stat__label {
+  margin-top: var(--space-2xs);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-light);
+  color: var(--text-primary);
+}
+
+/* ---------- Alternating credential rows ------------------ */
+
+.credentials__list {
+  display: grid;
+  gap: var(--space-2xl);
+  margin-top: var(--space-xl);
+}
+
+.credential {
+  display: grid;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .credential {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+  }
+
+  /* Every second row leads with the copy instead of the image */
+  .credential--flip .credential__media {
+    order: 2;
+  }
+}
+
+.credential__media img {
+  width: 100%;
+  height: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.credential__title {
+  margin-bottom: var(--space-sm);
+  font-size: var(--fs-card-title);
+  line-height: var(--lh-card-title);
+  font-weight: var(--fw-regular);
+  color: var(--text-primary);
+}
+
+.credential__body p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-light);
+  color: var(--text-primary);
+}
+
+/* ---------- Team grid ------------------------------------ */
+
+.team__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .team__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .team__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.team-card {
+  display: block;
+  padding: var(--space-md);
+  text-align: center;
+  background: var(--surface-card);
+  border: 1px solid var(--line-card);
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.team-card__photo {
+  overflow: hidden;
+  margin-bottom: var(--space-sm);
+  border-radius: var(--radius-md);
+  aspect-ratio: 1 / 1;
+}
+
+.team-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-card__name {
+  font-size: var(--fs-card-title);
+  line-height: var(--lh-card-title);
+  font-weight: var(--fw-regular);
+  color: var(--text-primary);
+}
+
+.team-card__role {
+  margin-top: var(--space-2xs);
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-light);
+  color: var(--text-muted);
+}
+
+/* The closing "this could be you" card */
+.team-card--join {
+  border-style: dashed;
+  background: transparent;
+}
+
+a.team-card--join:hover {
+  border-color: var(--text-accent);
+}
+
+.team-card__photo--join {
+  display: grid;
+  place-items: center;
+  font-size: var(--fs-section-title);
+  font-weight: var(--fw-light);
+  color: var(--text-accent);
+  background: var(--surface-base);
+}

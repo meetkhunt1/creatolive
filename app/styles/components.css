@@ -1,0 +1,375 @@
+/* ============================================================
+   SHARED COMPONENTS — buttons, section headers, icon tiles,
+   meta pills. Reused by every section on the page.
+   ============================================================ */
+
+/* ---------- Buttons --------------------------------------- */
+
+.btn {
+  display: inline-block;
+  width: 100%;
+  max-width: 100%;
+  padding: 11px 15px;
+  font-size: var(--fs-footer-heading);
+  line-height: var(--lh-body);
+  letter-spacing: 0;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: all var(--transition) ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .btn {
+    max-width: 220px;
+  }
+}
+
+/* Filled — accent background, dark label */
+.btn--primary {
+  color: var(--text-on-accent);
+  background: var(--text-accent);
+  border-color: var(--text-accent);
+}
+
+.btn--primary:hover {
+  color: var(--text-accent);
+  background: transparent;
+}
+
+/* Outline — same weight as primary but hollow */
+.btn--outline,
+.btn--secondary {
+  color: var(--text-accent);
+  background: transparent;
+  border-color: var(--text-accent);
+}
+
+.btn--outline:hover,
+.btn--secondary:hover {
+  color: var(--text-on-accent);
+  background: var(--text-accent);
+}
+
+/* Text link with a rule under it */
+.btn--link {
+  width: auto;
+  max-width: none;
+  padding: 0 0 4px;
+  color: var(--text-accent);
+  font-size: var(--fs-body);
+  line-height: 1;
+  border: none;
+  border-bottom: 1px solid var(--text-primary);
+  border-radius: 0;
+}
+
+.btn--link:hover {
+  color: var(--text-primary);
+}
+
+/* Compact header / mobile button */
+.btn--chip {
+  display: inline-block;
+  width: auto;
+  padding: 14px 23px;
+  font-size: var(--fs-footer-heading);
+  line-height: 1;
+  color: var(--text-on-accent);
+  background: var(--text-accent);
+  border: 1px solid var(--text-accent);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition) ease-in-out;
+}
+
+.btn--chip:hover {
+  color: var(--text-accent);
+  background: transparent;
+}
+
+.btn--chip-sm {
+  padding: 8px 23px;
+}
+
+.btn--block {
+  width: 100%;
+  text-align: center;
+}
+
+/* ---------- Button rows ----------------------------------- */
+
+.btn-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .btn-row {
+    flex-direction: row;
+  }
+}
+
+.btn-row--left {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.btn-row--center {
+  justify-content: center;
+}
+
+.btn-row--inline {
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .btn-row--inline {
+    flex-direction: row;
+  }
+}
+
+/* ---------- Section headers ------------------------------- */
+
+.section-header .tagline {
+  color: var(--text-accent);
+  font-size: var(--fs-tagline);
+  line-height: var(--lh-tagline);
+  font-weight: var(--fw-regular);
+}
+
+.section-header .title {
+  color: var(--text-primary);
+  font-size: var(--fs-section-title);
+  line-height: var(--lh-section-title);
+  font-weight: var(--fw-regular);
+}
+
+.section-header .title span {
+  color: var(--text-accent);
+}
+
+.section-header .description {
+  color: var(--text-primary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.section-header .tagline,
+.section-header .title,
+.section-header .block-title {
+  margin-bottom: var(--space-md);
+}
+
+.section-header > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Centred, width-limited header used by most sections */
+.section-header--center {
+  max-width: 725px;
+  margin: 0 auto var(--space-xl);
+  text-align: center;
+}
+
+.section-header--narrow {
+  max-width: 750px;
+  margin: 0 auto var(--space-xl);
+  text-align: center;
+}
+
+/* Two-column header: title left, description right */
+.section-header-split {
+  display: grid;
+  gap: var(--space-md);
+  margin-bottom: 30px;
+}
+
+@media (min-width: 768px) {
+  .section-header-split {
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: var(--space-3xl);
+  }
+}
+
+.section-header-split p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+}
+
+/* ---------- Block typography (project / FAQ headings) ----- */
+
+.block-title {
+  font-size: var(--fs-block-title);
+  line-height: var(--lh-block-title);
+  font-weight: var(--fw-light);
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.block-text {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-light);
+  color: var(--text-primary);
+  word-wrap: break-word;
+}
+
+.block-link {
+  display: inline-block;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: 1.2;
+  color: var(--text-muted);
+  padding-bottom: 4px;
+  border-bottom: 1px solid;
+}
+
+.block-link:hover {
+  color: var(--text-primary);
+}
+
+/* ---------- Meta pills ------------------------------------ */
+
+.pill-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+}
+
+/* Pills are links in the archive lists and plain spans when the whole
+   card is already a link. */
+.pill-list a,
+.pill-list li > span {
+  display: inline-block;
+  padding: 3px 11px;
+  font-size: var(--fs-pill);
+  line-height: 1;
+  text-align: center;
+  color: var(--text-primary);
+  background: var(--text-muted);
+  border-radius: var(--radius-pill);
+}
+
+@media (min-width: 768px) {
+  .pill-list a,
+  .pill-list li > span {
+    padding: 6px 12px;
+  }
+}
+
+.pill-list a:hover {
+  color: var(--surface-base);
+  background: var(--text-primary);
+}
+
+/* ---------- Icon tiles (services, core values, lists) ----- */
+
+.tile-grid .tile {
+  padding: 36px 25px;
+  background: var(--surface-card);
+  border-radius: var(--radius-md);
+}
+
+@media (min-width: 768px) {
+  .tile-grid .tile {
+    padding: 36px;
+  }
+}
+
+.tile__header {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tile__icon {
+  line-height: 1;
+}
+
+.tile__icon img {
+  height: 55px;
+  width: auto;
+}
+
+@media (min-width: 768px) {
+  .tile__icon img {
+    height: 65px;
+  }
+}
+
+.tile__title {
+  margin-bottom: 0;
+  font-size: var(--fs-card-title);
+  line-height: var(--lh-card-title);
+  font-weight: var(--fw-light);
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.tile__body {
+  padding-top: var(--space-xs);
+}
+
+.tile__body p {
+  margin-bottom: 0;
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+  text-align: left;
+}
+
+/* Centred variant */
+.tile-grid--center .tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tile-grid--center .tile__header {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tile-grid--center .tile__title,
+.tile-grid--center .tile__body p {
+  text-align: center;
+}
+
+/* Transparent variant used by the "We Simplify" row */
+.tile-grid--plain .tile {
+  padding: 36px 6px;
+  background: transparent;
+}
+
+.tile-grid--plain .tile__header {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.tile-grid--plain .tile__title {
+  line-height: var(--lh-tagline);
+}
+
+/* Link tiles keep the whole card clickable */
+a.tile {
+  display: block;
+}
+
+a.tile:hover .tile__title {
+  color: var(--text-accent);
+}
+
+/* Icons are line-art on dark; invert them for the light theme */
+[data-theme="light"] .tile__icon img,
+[data-theme="light"] .logo-rail img,
+[data-theme="light"] .platform-rail img {
+  filter: invert(100%);
+}

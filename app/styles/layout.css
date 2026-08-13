@@ -1,0 +1,189 @@
+/* ============================================================
+   LAYOUT PRIMITIVES — container, section rhythm, grids,
+   background bands and shared keyframes.
+   ============================================================ */
+
+.container {
+  position: relative;
+  z-index: 7;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: var(--container-max);
+  }
+}
+
+/* ---------- Section rhythm -------------------------------- */
+
+.section-space {
+  padding: var(--section-pad-y) 0;
+}
+
+/* ---------- Background bands ------------------------------ */
+
+.bg-base {
+  background-color: var(--surface-base);
+}
+
+.bg-deep {
+  background-color: var(--surface-deep);
+}
+
+.bg-card {
+  background-color: var(--surface-card);
+}
+
+/* ---------- Grids ----------------------------------------- */
+
+.grid-2 {
+  display: block;
+}
+
+@media (min-width: 576px) {
+  .grid-2 {
+    display: grid;
+    gap: var(--gap-col);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-2 {
+    gap: var(--space-3xl);
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.grid-3 {
+  display: grid;
+  gap: var(--gap-grid);
+}
+
+@media (min-width: 768px) {
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-2-even {
+  display: grid;
+  gap: var(--gap-grid);
+}
+
+@media (min-width: 768px) {
+  .grid-2-even {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.grid-1-3 {
+  display: grid;
+  gap: var(--gap-col);
+}
+
+@media (min-width: 768px) {
+  .grid-1-3 {
+    grid-template-columns: 1fr 3fr;
+  }
+}
+
+.grid-1-2 {
+  display: grid;
+  gap: var(--gap-col);
+}
+
+@media (min-width: 768px) {
+  .grid-1-2 {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+/* ---------- Text alignment helpers ------------------------ */
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ---------- Shared keyframes ------------------------------ */
+
+/* Ambient colour-cycling glow behind the hero / blog band */
+@keyframes glow-cycle {
+  0% {
+    background: #10a3a8;
+  }
+  33% {
+    background: #7c32db;
+  }
+  66% {
+    background: #891c53;
+  }
+  100% {
+    background: #10a3a8;
+  }
+}
+
+/* Endless horizontal travel — marquee text + logo rails */
+/* One copy per animated track (the logo rail duplicates the track itself) */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Both copies sit inside one track (the services marquee), so a full cycle is
+   half the track — scrolling the whole width would leave the band empty. */
+@keyframes marquee-x-half {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Hero collage columns drifting in opposite directions */
+@keyframes drift-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes drift-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

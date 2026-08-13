@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="450" viewBox="0 0 850 450" role="img" aria-label="Team photo placeholder">
+  <rect width="850" height="450" fill="#27272a"/>
+  <g fill="#3f3f46">
+    <circle cx="300" cy="185" r="46"/><path d="M224 300a76 76 0 0 1 152 0z"/>
+    <circle cx="425" cy="165" r="54"/><path d="M336 300a89 89 0 0 1 178 0z"/>
+    <circle cx="550" cy="185" r="46"/><path d="M474 300a76 76 0 0 1 152 0z"/>
+  </g>
+  <text x="425" y="370" fill="#5c5c62" font-family="DM Sans, sans-serif" font-size="20" text-anchor="middle">Add your team photo (850 × 450)</text>
+</svg>

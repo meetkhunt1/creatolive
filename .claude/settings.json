@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(npm run build)",
+      "PowerShell(npm run start)",
+      "PowerShell($ok = $false; for \\($i = 0; $i -lt 20; $i++\\) { try { $r = Invoke-WebRequest -Uri \"http://localhost:3000\" -UseBasicParsing -TimeoutSec 3; $ok = $true; break } catch { Start-Sleep -Milliseconds 500 } }; if \\($ok\\) { \"STATUS: $\\($r.StatusCode\\)\"; $t = [regex]::Match\\($r.Content, '<title>\\([^<]+\\)</title>'\\).Groups[1].Value; \"TITLE: $t\"; \"HAS HERO: $\\($r.Content -match 'Result-Oriented'\\)\"; \"HAS SERVICES: $\\($r.Content -match 'What We Do Best'\\)\"; \"HAS WORKS: $\\($r.Content -match 'Selected Works'\\)\"; \"HAS CONTACT: $\\($r.Content -match 'Drop Your Next Project'\\)\"; \"HAS FOOTER: $\\($r.Content -match 'info@creatolive.com'\\)\" } else { \"SERVER NOT RESPONDING\" })",
+      "PowerShell(npx next start -p 3001)",
+      "PowerShell($ok = $false; for \\($i = 0; $i -lt 30; $i++\\) { try { $r = Invoke-WebRequest -Uri \"http://localhost:3001\" -UseBasicParsing -TimeoutSec 3; $ok = $true; break } catch { Start-Sleep -Milliseconds 500 } }; if \\($ok\\) { \"STATUS: $\\($r.StatusCode\\)\"; \"HAS HERO: $\\($r.Content -match 'Result-Oriented'\\)\"; \"HAS TAGLINE: $\\($r.Content -match 'What We Do Best'\\)\"; \"HAS WORKS: $\\($r.Content -match 'Selected Works'\\)\"; \"HAS GROW: $\\($r.Content -match 'Who We Help Grow'\\)\"; \"HAS CONTACT: $\\($r.Content -match 'Drop Your Next Project'\\)\"; \"HAS FOOTER: $\\($r.Content -match 'info@creatolive.com'\\)\" } else { \"SERVER NOT RESPONDING\" })"
+    ]
+  }
+}

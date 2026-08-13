@@ -1,0 +1,540 @@
+/* ============================================================
+   TOP BAR + HEADER + NAVIGATION + MOBILE DRAWER
+   ============================================================ */
+
+/* ---------- Utility top bar ------------------------------- */
+
+.topbar {
+  position: relative;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 12px 0;
+  background: var(--surface-deep);
+}
+
+@media (min-width: 768px) {
+  .topbar {
+    padding: 10px;
+  }
+}
+
+.topbar__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .topbar__inner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.topbar__left {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .topbar__left {
+    display: block;
+  }
+}
+
+.topbar__links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .topbar__links {
+    width: auto;
+    justify-content: flex-end;
+  }
+}
+
+.topbar__links li {
+  margin: 0;
+  line-height: 1;
+}
+
+.topbar__links a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--fs-meta);
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+.topbar__links a:hover {
+  color: var(--text-accent);
+}
+
+.topbar__links svg {
+  height: 17px;
+}
+
+.topbar__address {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .topbar__address {
+    display: block;
+  }
+}
+
+/* Theme switch ------------------------------------------------ */
+
+.theme-switch {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.theme-switch svg {
+  stroke: currentColor;
+  transition: all var(--transition) ease-in-out;
+}
+
+/* ---------- Header ---------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background-color: var(--surface-base);
+}
+
+.site-header__inner {
+  display: grid;
+  align-items: center;
+  gap: var(--space-md);
+  grid-template-columns: 2fr 1fr;
+}
+
+@media (min-width: 768px) {
+  .site-header__inner {
+    grid-template-columns: 1fr 3.5fr;
+  }
+}
+
+@media (min-width: 1200px) {
+  .site-header__inner {
+    grid-template-columns: 1fr 3.5fr 1fr;
+  }
+}
+
+/* Word logo --------------------------------------------------- */
+
+.site-logo {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-md) 0;
+  line-height: 1;
+}
+
+/* Width-driven with `height: auto`, so the 1536 x 259 artwork keeps its ratio
+   even when the header's logo column is narrower than its natural width —
+   a fixed height would get squashed by the global `max-width: 100%`. */
+.site-logo img {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+}
+
+/* The artwork is near-white for the dark theme; the light theme flips it to
+   near-black rather than shipping a second file. */
+[data-theme="light"] .site-logo img {
+  filter: invert(1);
+}
+
+/* ---------- Primary navigation ---------------------------- */
+
+.site-header__nav {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .site-header__nav {
+    display: block;
+  }
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: 0;
+}
+
+/* Deliberately not positioned: the mega menu inside resolves against
+   .site-header so it can span the full header width. */
+.nav-list > li {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+  margin: 0;
+}
+
+/* Direct child only — the mega menus inside carry their own link styles */
+.nav-list > li > a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-sm) var(--space-xs);
+  font-size: var(--fs-footer-heading);
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+.nav-list > li > a:hover {
+  color: var(--text-muted);
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  transform: rotate(-180deg);
+  transition: transform var(--transition) ease-in-out;
+}
+
+.nav-list > li:hover .nav-icon {
+  transform: rotate(0deg);
+}
+
+/* ---------- Mega menu ------------------------------------- */
+
+.megamenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  min-height: 350px;
+  padding: var(--space-xl) var(--space-md);
+  text-align: left;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background-color: var(--surface-base);
+  border: 1px solid var(--text-muted);
+  border-radius: var(--radius-xs);
+  transform: translateY(10px);
+  transition-duration: 0.2s;
+}
+
+.megamenu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  opacity: 0.2;
+  background: linear-gradient(
+      0deg,
+      var(--surface-overlay),
+      var(--surface-overlay)
+    ),
+    var(--img-noise);
+}
+
+.nav-list > li:hover > .megamenu {
+  z-index: 999;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.megamenu__wrap {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.megamenu .tile-grid .tile {
+  padding: 0;
+}
+
+.megamenu .tile-grid a.tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 36px 25px;
+  background: var(--surface-card);
+}
+
+@media (min-width: 768px) {
+  .megamenu .tile-grid a.tile {
+    padding: 51px 46px;
+  }
+}
+
+.megamenu .tile-grid a.tile .tile__title {
+  line-height: 1.3;
+}
+
+.megamenu .btn-row {
+  margin-top: 0;
+}
+
+/* Resource-list mega menu ------------------------------------- */
+
+.menu-tagline {
+  display: inline-block;
+  margin-bottom: var(--space-md);
+  font-size: var(--fs-tagline);
+  line-height: 1;
+  color: var(--text-accent);
+}
+
+.menu-links li {
+  margin-bottom: var(--space-sm);
+}
+
+.menu-links a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0;
+}
+
+.menu-links a span:first-child {
+  font-size: var(--fs-body);
+  color: var(--text-primary);
+}
+
+.menu-links a span:last-child {
+  font-size: var(--fs-meta);
+  color: var(--text-muted);
+}
+
+.featured-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.featured-list a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0;
+}
+
+.featured-list img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: var(--radius-xs);
+  flex-shrink: 0;
+}
+
+.featured-list h4 {
+  font-size: var(--fs-meta);
+  line-height: 18px;
+  font-weight: var(--fw-regular);
+  color: var(--text-primary);
+}
+
+/* ---------- Header CTA cluster --------------------------- */
+
+.site-header__cta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.site-header__cta .btn--chip {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .site-header__cta .btn--chip {
+    display: inline-block;
+  }
+}
+
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  max-height: 24px;
+  line-height: 1;
+  color: var(--text-primary);
+}
+
+@media (min-width: 992px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* ---------- Mobile drawer -------------------------------- */
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.drawer.is-open {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.drawer__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity var(--transition) ease-in-out;
+}
+
+.drawer.is-open .drawer__overlay {
+  opacity: 1;
+}
+
+.drawer__inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(360px, 88vw);
+  padding: var(--space-lg) var(--space-md);
+  overflow-y: auto;
+  background: var(--surface-base);
+  border-left: 1px solid var(--line-soft);
+  transform: translateX(100%);
+  transition: transform var(--transition-slow) var(--ease-out);
+}
+
+.drawer.is-open .drawer__inner {
+  transform: translateX(0);
+}
+
+.drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-xl);
+}
+
+.drawer__close {
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.drawer__nav li {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.drawer__nav a {
+  display: block;
+  padding: var(--space-sm) 0;
+  font-size: var(--fs-body);
+  color: var(--text-primary);
+}
+
+.drawer__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-lg);
+}
+
+.drawer__footer {
+  margin-top: auto;
+  padding-top: var(--space-xl);
+}
+
+.drawer__footer ul {
+  margin-bottom: var(--space-md);
+}
+
+.drawer__footer li,
+.drawer__footer a {
+  font-size: var(--fs-meta);
+  line-height: 24px;
+  color: var(--text-footer-link);
+}
+
+.drawer__social {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.drawer__social a {
+  line-height: 1;
+  color: var(--text-accent);
+}
+
+.drawer__social a:hover {
+  color: var(--text-primary);
+}
+
+/* ---------- Scroll progress / back-to-top ---------------- */
+
+.scroll-top {
+  position: fixed;
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-round);
+  background: var(--surface-card);
+  color: var(--text-accent);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: all var(--transition) ease-in-out;
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-top__ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.scroll-top__ring path {
+  fill: none;
+  stroke: var(--text-accent);
+  stroke-width: 4;
+  transition: stroke-dashoffset 10ms linear;
+}
+
+.scroll-top svg.up-arrow {
+  position: relative;
+  z-index: 1;
+}

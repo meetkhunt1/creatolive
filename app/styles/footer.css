@@ -1,0 +1,290 @@
+/* ============================================================
+   FOOTER + SITE INFO BAR
+   ============================================================ */
+
+.site-footer {
+  position: relative;
+  z-index: 9;
+  background: var(--surface-base);
+}
+
+/* ---------- Link columns ---------------------------------- */
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: var(--section-pad-y) 0;
+}
+
+@media (max-width: 600px) {
+  .footer-grid {
+    padding: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .footer-grid {
+    grid-template-columns: 1.5fr 2fr 1fr 1.25fr;
+    padding: var(--space-3xl) 0;
+  }
+}
+
+.footer-col {
+  padding: 30px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+@media (min-width: 992px) {
+  .footer-col {
+    padding: 30px;
+    border-right: 1px solid var(--line-soft);
+  }
+
+  .footer-col:first-child {
+    padding-left: 0;
+  }
+
+  .footer-col:last-child {
+    padding-right: 0;
+    border-right: none;
+  }
+}
+
+.footer-col__heading {
+  margin: 0 0 22px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-footer-heading);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-body);
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.footer-col ul {
+  margin-bottom: 0;
+}
+
+.footer-col li {
+  margin: 0;
+}
+
+.footer-col a {
+  font-size: var(--fs-footer-link);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-footer-link);
+  color: var(--text-footer-link);
+}
+
+.footer-col a:hover {
+  color: var(--text-primary);
+}
+
+/* Two-up link lists for the wider columns */
+.footer-col__links ul {
+  columns: 2;
+  column-gap: 24px;
+}
+
+.footer-col__links li {
+  break-inside: avoid;
+}
+
+@media (min-width: 992px) {
+  .footer-col__links ul {
+    column-gap: 32px;
+  }
+}
+
+/* ---------- Contact column -------------------------------- */
+
+@media (max-width: 992px) {
+  .footer-col--contact {
+    border-bottom: none;
+  }
+}
+
+.footer-phone {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-size: var(--fs-footer-link);
+  font-weight: var(--fw-light);
+  line-height: 24px;
+  color: var(--text-footer-link);
+}
+
+.footer-phone:hover {
+  color: var(--text-primary);
+}
+
+.footer-address {
+  font-size: var(--fs-footer-link);
+  font-weight: var(--fw-light);
+  line-height: 22px;
+  color: var(--text-footer-meta);
+}
+
+.footer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  margin-top: 28px;
+}
+
+@media (max-width: 600px) {
+  .footer-badges {
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+}
+
+.footer-badges img {
+  display: block;
+  width: 60px;
+  height: 70px;
+  aspect-ratio: 37 / 40;
+}
+
+@media (min-width: 576px) {
+  .footer-badges img {
+    width: 40px;
+  }
+}
+
+@media (min-width: 1640px) {
+  .footer-badges img {
+    width: 44px;
+  }
+}
+
+/* The award badge floats beside the wordmark on desktop */
+@media (min-width: 992px) {
+  .footer-badges .footer-badges__award {
+    display: none;
+  }
+}
+
+/* ---------- Oversized wordmark ---------------------------- */
+
+.footer-wordmark {
+  position: relative;
+}
+
+/* The word-mark is an SVG so it always spans the container exactly,
+   the way the reference logotype does. */
+.footer-wordmark__link {
+  display: block;
+  line-height: 0;
+  transition: opacity var(--transition) ease-in-out;
+}
+
+.footer-wordmark__link:hover {
+  opacity: 0.85;
+}
+
+.footer-wordmark__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.footer-wordmark__svg text {
+  font-family: var(--font-primary);
+  font-weight: var(--fw-medium);
+  fill: var(--text-primary);
+}
+
+.footer-wordmark__award {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .footer-wordmark__award {
+    display: block;
+    position: absolute;
+    top: -55px;
+    right: -15px;
+  }
+
+  .footer-wordmark__award img {
+    display: block;
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .footer-wordmark__award {
+    top: -80px;
+    right: -35px;
+  }
+
+  .footer-wordmark__award img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* ---------- Bottom bar ------------------------------------ */
+
+.site-info {
+  position: relative;
+  z-index: 9;
+  background: var(--surface-base);
+}
+
+.site-info__inner {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) 0;
+}
+
+@media (min-width: 768px) {
+  .site-info__inner {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+.site-info a {
+  font-size: 12px;
+  line-height: var(--lh-tagline);
+  font-weight: var(--fw-light);
+  color: var(--text-footer-legal);
+}
+
+.site-info a:hover {
+  color: var(--text-footer-meta);
+}
+
+.social-icons {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-md);
+}
+
+.social-icons a {
+  line-height: 1;
+  opacity: 0.85;
+  transition: opacity var(--transition) ease-in-out;
+}
+
+.social-icons a:hover {
+  opacity: 1;
+}
+
+.social-icons img {
+  width: 27.567px;
+  height: 27.567px;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+}
+
+/* The social marks are white line art — flip them for the light theme */
+[data-theme="light"] .social-icons img,
+[data-theme="light"] .drawer__social img {
+  filter: invert(100%);
+}

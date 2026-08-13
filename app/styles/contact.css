@@ -1,0 +1,288 @@
+/* ============================================================
+   CONTACT PAGE — intro column + enquiry form card
+   ============================================================ */
+
+.contact-section {
+  padding: 100px 0 var(--section-pad-y);
+  background: transparent
+    linear-gradient(0deg, var(--surface-deep), var(--surface-base));
+}
+
+.contact-grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .contact-grid {
+    gap: var(--space-md);
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---------- Left column ----------------------------------- */
+
+@media (min-width: 768px) {
+  .contact-intro {
+    padding-right: var(--space-xl);
+  }
+}
+
+.contact-intro__title {
+  margin-bottom: var(--space-md);
+}
+
+.contact-intro__desc p {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-light);
+  color: var(--text-primary);
+}
+
+.contact-office {
+  margin-top: var(--space-lg);
+}
+
+.contact-office h4 {
+  font-size: var(--fs-meta);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-regular);
+  color: var(--text-accent);
+}
+
+.contact-office li {
+  margin: 0;
+}
+
+.contact-office a {
+  font-size: var(--fs-body-sm);
+  line-height: 24px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--text-muted);
+}
+
+.contact-office a:hover {
+  border-bottom-color: var(--text-primary);
+}
+
+.contact-office span {
+  font-size: var(--fs-body-sm);
+  line-height: 24px;
+  color: var(--text-primary);
+}
+
+/* ---------- Form card ------------------------------------- */
+/* The card deliberately overhangs the section below it. */
+
+.contact-form-card {
+  padding: var(--space-xl) var(--space-md);
+  margin-bottom: -150px;
+  background: var(--surface-card);
+  border-radius: var(--radius-md);
+}
+
+.contact-form {
+  display: grid;
+  row-gap: 8px;
+}
+
+.field {
+  position: relative;
+}
+
+.field__legend {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-regular);
+  text-align: left;
+  color: var(--text-primary);
+}
+
+/* Text inputs sit on a single rule with a leading icon */
+
+.field__control {
+  position: relative;
+}
+
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="tel"],
+.field input[type="url"],
+.field textarea {
+  width: 100%;
+  font-family: var(--font-primary);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+  padding: 6px 25px 12px 30px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--text-muted);
+  border-radius: 0;
+  transition: all var(--transition) ease-in-out;
+}
+
+.field textarea {
+  height: 155px;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-accent);
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
+}
+
+.field__icon {
+  position: absolute;
+  top: 13px;
+  left: 0;
+  height: 18px;
+  line-height: 1;
+  color: var(--text-muted);
+  pointer-events: none;
+  transition: color var(--transition) ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .field__icon {
+    top: 9px;
+  }
+}
+
+.field--textarea .field__icon {
+  top: 9px;
+}
+
+.field__control:focus-within .field__icon {
+  color: var(--text-primary);
+}
+
+.field__error {
+  display: block;
+  margin-top: 6px;
+  font-size: var(--fs-meta);
+  line-height: 1.4;
+  color: var(--star-clutch);
+}
+
+/* ---------- Pill choice groups (checkbox + radio) --------- */
+
+.field--choice {
+  margin-bottom: var(--space-md);
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+@media (min-width: 992px) {
+  .choice-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 11px;
+  }
+}
+
+.choice-grid input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice-grid label {
+  display: inline-block;
+  width: 100%;
+  height: 28px;
+  text-align: center;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-size: var(--fs-body-sm);
+  line-height: 1.8;
+  letter-spacing: 0;
+  color: var(--surface-card);
+  background: var(--text-muted);
+  border: 1px solid var(--text-muted);
+  border-radius: var(--radius-pill);
+  transition: all var(--transition) ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .choice-grid label {
+    font-size: var(--fs-meta);
+    line-height: 2;
+  }
+}
+
+@media (min-width: 1200px) {
+  .choice-grid label {
+    font-size: var(--fs-footer-heading);
+    line-height: 1.8;
+  }
+}
+
+.choice-grid label:hover {
+  border-color: var(--text-primary);
+}
+
+.choice-grid input:checked + label {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.choice-grid input:focus-visible + label {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+/* ---------- Submit ---------------------------------------- */
+
+.contact-form__footer {
+  margin-top: var(--space-md);
+}
+
+.contact-form__submit {
+  width: 100%;
+  padding: 14px 25px;
+  font-family: var(--font-primary);
+  font-size: var(--fs-footer-heading);
+  line-height: 1;
+  text-align: center;
+  letter-spacing: 0;
+  color: var(--text-on-accent);
+  background: var(--text-accent);
+  border: 1px solid var(--text-accent);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition) ease-in-out;
+}
+
+.contact-form__submit:hover:not(:disabled) {
+  color: var(--text-accent);
+  background: transparent;
+}
+
+.contact-form__submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.contact-form__status {
+  margin: var(--space-sm) 0 0;
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+}
+
+/* The FAQ that follows must clear the overhanging form card */
+.contact-section + .faq {
+  padding-top: 200px;
+}

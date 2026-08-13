@@ -1,0 +1,181 @@
+/* ============================================================
+   DESIGN TOKENS — single source of truth
+   Change a value here and it propagates across the whole site.
+   Dark is the default theme; `[data-theme="light"]` flips surfaces.
+   ============================================================ */
+
+:root {
+  /* ---------- Surfaces ---------------------------------------
+     base = default page background
+     deep = higher-contrast band (alternating sections, top bar)
+     card = raised tile / panel
+  ----------------------------------------------------------- */
+  --surface-base: #18181b;
+  --surface-deep: #000000;
+  --surface-card: #27272a;
+  --surface-overlay: rgba(24, 24, 27, 0.9);
+
+  /* ---------- Text ------------------------------------------ */
+  --text-primary: #ffffff;
+  --text-accent: #c1c1c1; /* taglines, buttons, quiet headings */
+  --text-muted: #5c5c62; /* meta, icon strokes, links underline */
+  --text-on-accent: #000000; /* text sitting on an accent-filled button */
+
+  /* ---------- Lines ----------------------------------------- */
+  --line-soft: rgba(255, 255, 255, 0.1);
+  --line-card: rgba(115, 115, 115, 0.36);
+  --line-divider: #222222;
+
+  /* ---------- Footer / low-emphasis text -------------------- */
+  --text-footer-link: rgba(255, 255, 255, 0.7);
+  --text-footer-meta: rgba(255, 255, 255, 0.65);
+  --text-footer-legal: rgba(255, 255, 255, 0.35);
+
+  /* ---------- Accent / status colours ----------------------- */
+  --star-google: #f1be41;
+  --star-clutch: #d75947;
+  --glow: #5f7d95; /* blurred ambient blob behind hero + blog */
+
+  /* ---------- Typography ------------------------------------ */
+  --font-primary: var(--font-dm-sans), "DM Sans", sans-serif;
+  --font-mono: var(--font-dm-mono), "DM Mono", monospace;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  /* Headings */
+  --fs-h1: 34px;
+  --lh-h1: 1.2;
+  --fs-hero: 34px;
+  --lh-hero: 42px;
+  --fs-section-title: 24px;
+  --lh-section-title: 30px;
+  --fs-block-title: 24px;
+  --lh-block-title: 30px;
+  --fs-tagline: 18px;
+  --lh-tagline: 34px;
+
+  /* Body */
+  --fs-body: 16px;
+  --lh-body: 23px;
+  --fs-body-sm: 14px;
+  --fs-meta: 13px;
+  --fs-pill: 11px;
+
+  /* Cards */
+  --fs-card-title: 18px;
+  --lh-card-title: 28px;
+
+  /* Marquee */
+  --fs-marquee: 32px;
+  --lh-marquee: 54px;
+
+  /* Footer */
+  --fs-footer-heading: 15px;
+  --fs-footer-link: 13px;
+  --lh-footer-link: 30px;
+
+  /* ---------- Spacing --------------------------------------- */
+  --space-2xs: 5px;
+  --space-xs: 10px;
+  --space-sm: 15px;
+  --space-md: 20px;
+  --space-lg: 25px;
+  --space-xl: 40px;
+  --space-2xl: 60px;
+  --space-3xl: 80px;
+
+  --section-pad-y: 60px;
+  --gap-grid: 16px;
+  --gap-col: 40px;
+
+  /* ---------- Layout --------------------------------------- */
+  --container-max: 1140px;
+  --container-pad: 20px;
+  --hero-media-height: 420px;
+
+  /* ---------- Radii ---------------------------------------- */
+  --radius-xs: 4px;
+  --radius-sm: 5px;
+  --radius-md: 10px;
+  --radius-pill: 20px;
+  --radius-round: 100%;
+
+  /* ---------- Motion --------------------------------------- */
+  --transition: 0.3s;
+  --transition-slow: 0.5s;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* ---------- Elevation / effects -------------------------- */
+  --blur-glow: 170px;
+  --shadow-chip: 0 2px 6px rgba(0, 0, 0, 0.3);
+
+  /* ---------- Gradients ------------------------------------ */
+  --gradient-portfolio: linear-gradient(
+    90deg,
+    #19151b,
+    #190712,
+    #671348,
+    #671348,
+    #6c124b
+  );
+
+  /* ---------- Assets --------------------------------------- */
+  --img-hero-pattern: url("/img/stdl-hero-bg-2.svg");
+  --img-noise: url("/img/blur-pattern.png");
+  --img-quote: url("/img/quote-mark-2.svg");
+}
+
+/* ---------- Tablet ---------------------------------------- */
+@media (min-width: 768px) {
+  :root {
+    --fs-h1: 38px;
+    --fs-hero: 38px;
+    --lh-hero: 47px;
+    --fs-section-title: 30px;
+    --lh-section-title: 34px;
+    --fs-block-title: 30px;
+    --lh-block-title: 34px;
+    --lh-card-title: 34px;
+    --fs-pill: 15px;
+    --fs-marquee: 110px;
+    --lh-marquee: 130px;
+    --section-pad-y: 80px;
+    --gap-col: 80px;
+    --hero-media-height: 650px;
+  }
+}
+
+/* ---------- Desktop --------------------------------------- */
+@media (min-width: 1200px) {
+  :root {
+    --fs-h1: 50px;
+  }
+}
+
+/* ============================================================
+   LIGHT THEME — only surfaces + text flip, everything else
+   inherits from the dark definitions above.
+   ============================================================ */
+
+[data-theme="light"] {
+  --surface-base: #f8f8f8;
+  --surface-deep: #ffffff;
+  --surface-card: #eeeeee;
+  --surface-overlay: rgba(248, 248, 248, 0.9);
+
+  --text-primary: #000000;
+  --text-accent: #27272a;
+  --text-muted: #5c5c62;
+  --text-on-accent: #ffffff;
+
+  --line-soft: rgba(0, 0, 0, 0.1);
+  --line-card: rgba(115, 115, 115, 0.36);
+  --line-divider: #e2e2e2;
+
+  --text-footer-link: rgba(0, 0, 0, 0.7);
+  --text-footer-meta: rgba(0, 0, 0, 0.65);
+  --text-footer-legal: rgba(0, 0, 0, 0.4);
+}
