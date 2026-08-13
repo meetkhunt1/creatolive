@@ -1,0 +1,82 @@
+# ============================================================
+# main  --push-->  build  -->  deploy branch  -->  Hostinger
+#
+# Pushing to main runs `next build`, which static-exports the site to ./out.
+# The contents of ./out are then force-pushed to the `deploy` branch, so that
+# branch always holds exactly the built site at its root and nothing else.
+#
+# Hostinger (hPanel -> Advanced -> GIT) pulls the `deploy` branch into
+# public_html, so a deploy is: push to main, wait for this job, hit Deploy.
+#
+# The deploy branch is a build artifact, not history — every run replaces it
+# with a single fresh commit. Never commit to it by hand; the next push to
+# main will overwrite it.
+# ============================================================
+
+name: Build and publish to deploy branch
+
+on:
+  push:
+    branches: [main]
+  # Lets you re-publish from the Actions tab without a code change.
+  workflow_dispatch:
+
+# Only the deploy branch is written, by the built-in token.
+permissions:
+  contents: write
+
+# A newer push to main makes an in-flight build obsolete.
+concurrency:
+  group: deploy-branch
+  cancel-in-progress: true
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # `npm ci` installs exactly what package-lock.json pins.
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npx tsc --noEmit
+
+      - name: Build static export
+        run: npm run build
+
+      # A missing index.html means the export silently produced nothing —
+      # better to fail here than to publish an empty site over a working one.
+      - name: Verify the export
+        run: |
+          test -f out/index.html || { echo "::error::out/index.html missing — export failed"; exit 1; }
+          echo "Exported $(find out -name '*.html' | wc -l) HTML files"
+
+      - name: Publish out/ to the deploy branch
+        env:
+          # Provided by Actions; scoped to this repo only.
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd out
+          # .nojekyll stops GitHub's Jekyll from dropping the /_next folder,
+          # which it would otherwise ignore for starting with an underscore.
+          touch .nojekyll
+          git init -q
+          git checkout -q -b deploy
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Build from ${GITHUB_SHA::7}"
+          git push -q --force \
+            "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            deploy
+          echo "Published $(git rev-parse --short HEAD) to deploy"

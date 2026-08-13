@@ -14,8 +14,6 @@
 import { projects as caseStudies } from "./portfolio-content";
 import { featuredServices, serviceCatalog, serviceLabels } from "./services-content";
 
-const CDN = "https://creatolive.com/wp-content/uploads";
-
 /* ---------- Brand / contact ------------------------------- */
 
 export const brand = {
