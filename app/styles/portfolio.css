@@ -7,8 +7,9 @@
    ------------------------------------------------------------ */
 
 .page-intro {
-  padding: var(--section-pad-y) 0;
-  background: var(--gradient-portfolio);
+  /* Extra top padding clears the overlaid header — see --page-top-h. */
+  padding: calc(var(--section-pad-y) + var(--page-top-h)) 0 var(--section-pad-y);
+  background: var(--gradient-intro);
 }
 
 .page-intro__grid {
@@ -349,14 +350,14 @@
    ------------------------------------------------------------ */
 
 .project-banner {
-  padding: 50px 0;
+  padding: calc(50px + var(--page-top-h)) 0 50px;
   margin-bottom: -1px;
   background: var(--surface-base);
 }
 
 @media (min-width: 768px) {
   .project-banner {
-    padding: 0;
+    padding: var(--page-top-h) 0 0;
   }
 }
 

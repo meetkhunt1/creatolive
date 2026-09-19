@@ -1,5 +1,5 @@
 import { hero } from "@/lib/home-content";
-import { StarIcon } from "@/components/icons";
+import { ArrowRightIcon, StarIcon } from "@/components/icons";
 
 function Stars() {
   return (
@@ -13,49 +13,42 @@ function Stars() {
   );
 }
 
-/** A drifting column of work screenshots. The list is rendered twice so
- *  the CSS translate loop never shows a gap. */
-function CollageColumn({
-  items,
-  direction,
-}: {
-  items: { src: string; alt: string }[];
-  direction: "up" | "down";
-}) {
-  return (
-    <div className={`collage__col collage__col--${direction}`}>
-      {[...items, ...items].map((item, i) => (
-        <div className="collage__item" key={`${item.src}-${i}`}>
-          <img
-            src={item.src}
-            alt={i < items.length ? item.alt : ""}
-            aria-hidden={i >= items.length}
-            loading={i === 0 ? "eager" : "lazy"}
-          />
-        </div>
-      ))}
-    </div>
-  );
-}
-
+/**
+ * Single centred column: pill, display headline, supporting line, then the
+ * calls to action. The screenshot columns that used to sit alongside are
+ * parked in HeroCollage.tsx.
+ */
 export default function Hero() {
   return (
     <section className="hero" id="hero">
       <div className="container">
         <div className="hero__inner">
-          <div className="hero__content">
-            <h1 className="hero__title">{hero.title}</h1>
-            <p className="hero__text">{hero.text}</p>
+          {hero.eyebrow ? (
+            <p className="hero__eyebrow">
+              <span className="hero__eyebrow-dot" aria-hidden="true" />
+              {hero.eyebrow}
+            </p>
+          ) : null}
 
-            <div className="btn-row btn-row--left">
-              <a className="btn btn--primary" href={hero.primaryCta.href}>
-                {hero.primaryCta.label}
-              </a>
-              <a className="btn btn--secondary" href={hero.secondaryCta.href}>
-                {hero.secondaryCta.label}
-              </a>
-            </div>
+          <h1 className="hero__title">{hero.title}</h1>
+          <p className="hero__text">{hero.text}</p>
 
+          <div className="hero__actions">
+            <a className="btn btn--primary btn--hero" href={hero.primaryCta.href}>
+              {hero.primaryCta.label}
+              <ArrowRightIcon />
+            </a>
+            <a
+              className="btn btn--secondary btn--hero"
+              href={hero.secondaryCta.href}
+            >
+              {hero.secondaryCta.label}
+            </a>
+          </div>
+
+          {/* Dropped entirely when there are no badges, so the hero does not
+              carry an empty row under the buttons. */}
+          {hero.badges.length > 0 ? (
             <div className="review-badges">
               {hero.badges.map((badge) => (
                 <div
@@ -72,14 +65,7 @@ export default function Hero() {
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="hero__collage" aria-label="Recent work">
-            <div className="collage">
-              <CollageColumn items={hero.collage.columnA} direction="up" />
-              <CollageColumn items={hero.collage.columnB} direction="down" />
-            </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </section>

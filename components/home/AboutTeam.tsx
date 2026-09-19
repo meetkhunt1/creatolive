@@ -1,12 +1,13 @@
 import { about } from "@/lib/home-content";
 import { isBuiltHref, stripUnbuiltLinks } from "@/lib/routes";
 
-/** Copy + full-width image, copy first on desktop. */
+/** Copy + full-width image, copy first on desktop. Without an image the
+ *  grid collapses to a single copy column. */
 export default function AboutTeam() {
   return (
     <section className="about" id="about">
       <div className="container">
-        <div className="about__grid">
+        <div className={`about__grid${about.image ? "" : " about__grid--solo"}`}>
           <div className="about__copy">
             <div className="section-header">
               <h4 className="tagline">{about.tagline}</h4>
@@ -34,15 +35,17 @@ export default function AboutTeam() {
             ) : null}
           </div>
 
-          <div className="about__media">
-            <img
-              src={about.image}
-              alt={about.title}
-              loading="lazy"
-              width={850}
-              height={450}
-            />
-          </div>
+          {about.image ? (
+            <div className="about__media">
+              <img
+                src={about.image}
+                alt={about.title}
+                loading="lazy"
+                width={850}
+                height={450}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

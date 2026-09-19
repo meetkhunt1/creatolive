@@ -36,8 +36,8 @@ export const aboutStory = {
     "Since then we have delivered projects across ecommerce, professional services, education and travel — from single-page builds to full brand systems and multi-channel campaigns.",
     "That focus on quality and simplicity is still the thing every project is measured against.",
   ],
-  // PLACEHOLDER — swap for a real photo of the Creatolive team (850 x 450).
-  image: "/img/team-placeholder.svg",
+  /** A real photo of the team (850 x 450) restores the two-column layout. */
+  image: null as string | null,
   cta: { label: "Let's Chat", href: "/contact" },
 };
 
@@ -45,7 +45,12 @@ export const aboutStory = {
  * PLACEHOLDER — the source page used these blocks for conference sponsorship,
  * open-source contribution and partner status. Replace with Creatolive's own
  * credentials, or drop entries you cannot substantiate.
+ *
+ * Give an item an `image` and its row lays out as image + copy; without one
+ * the rows render as plain text cards.
  */
+type Credential = { title: string; text: string; image?: string };
+
 export const aboutCredentials = {
   tagline: "Why Teams Pick Us",
   title: "Specialists, Not a Generalist Agency",
@@ -53,19 +58,16 @@ export const aboutCredentials = {
     {
       title: "Senior Practitioners on Every Project",
       text: "The work is done by people who have run these channels for years, not handed to a junior with a checklist. There is no layer of account management between you and the person building your project.",
-      image: "/img/main-tile-1.png",
     },
     {
       title: "Strictly In-House Delivery",
       text: "We do not subcontract client work to third-party shops. Everything ships from our own team, which is why the quality stays consistent from the first project to the fifth.",
-      image: "/img/main-tile-1.png",
     },
     {
       title: "Reporting Tied to Revenue",
       text: "Campaigns are judged on pipeline and revenue rather than impressions and reach. If a channel is not paying for itself, you will hear it from us before you have to ask.",
-      image: "/img/main-tile-1.png",
     },
-  ],
+  ] as Credential[],
 };
 
 export const aboutProcess = {

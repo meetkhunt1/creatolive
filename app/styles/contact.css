@@ -3,7 +3,7 @@
    ============================================================ */
 
 .contact-section {
-  padding: 100px 0 var(--section-pad-y);
+  padding: calc(100px + var(--page-top-h)) 0 var(--section-pad-y);
   background: transparent
     linear-gradient(0deg, var(--surface-deep), var(--surface-base));
 }

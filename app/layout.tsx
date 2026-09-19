@@ -26,40 +26,22 @@ export const metadata: Metadata = {
     "Creatolive is a result-oriented digital marketing agency. We help ambitious brands scale with web and app development, SEO, Google/Meta ads, social media and branding.",
 };
 
-/**
- * Applies the stored theme before first paint so the page never flashes
- * the wrong palette. Kept tiny and dependency-free on purpose.
- */
-const themeScript = `
-(function(){
-  try {
-    var stored = localStorage.getItem('creatolive-theme');
-    document.documentElement.dataset.theme = stored === 'light' ? 'light' : 'dark';
-  } catch (e) {
-    document.documentElement.dataset.theme = 'dark';
-  }
-})();
-`;
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   // Font variables sit on <html> because the tokens in :root reference them.
   return (
-    <html
-      lang="en-US"
-      data-theme="dark"
-      className={`${dmSans.variable} ${dmMono.variable}`}
-    >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
+    <html lang="en-US" className={`${dmSans.variable} ${dmMono.variable}`}>
       <body>
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        <TopBar />
-        <SiteHeader />
+        {/* Lifted out of the flow so the page background runs behind it —
+            see `.page-top` in app/styles/header.css. */}
+        <div className="page-top">
+          <TopBar />
+          <SiteHeader />
+        </div>
         <main id="main">{children}</main>
         <SiteFooter />
         <ScrollTop />

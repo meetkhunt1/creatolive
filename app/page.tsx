@@ -17,8 +17,13 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Platforms />
-      <Clients />
+
+      {/* "Experts in leading web platforms" — taken off the page. */}
+      {/* <Platforms /> */}
+
+      {/* Client logo marquee — the marks are template filler, not Creatolive
+          clients. Restore once there are real logos to show. */}
+      {/* <Clients /> */}
 
       {/* All four live services fit here in a 2 x 2 grid, which is why the
           fuller ServiceList section below is switched off — it would repeat
@@ -54,7 +59,9 @@ export default function HomePage() {
 
       {/* "Client Testimonials" — hidden; the quotes are still placeholder filler. */}
       {/* <Testimonials /> */}
-      <BlogCarousel />
+      {/* Blog carousel — placeholder posts and thumbnails, and /blog is not
+          built yet. Restore when the blog is live. */}
+      {/* <BlogCarousel /> */}
       <Marquee />
       <Faq />
     </>

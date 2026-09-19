@@ -2,118 +2,61 @@
    TOP BAR + HEADER + NAVIGATION + MOBILE DRAWER
    ============================================================ */
 
-/* ---------- Utility top bar ------------------------------- */
+/* ---------- Overlaid top bar + header ---------------------
+   Both sit above the page rather than in it, so whatever the first
+   section paints — the hero gradient, the portfolio banner — runs the
+   full height behind them. They scroll away with the page.
+   ---------------------------------------------------------- */
+
+.page-top {
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  z-index: 200;
+}
+
+/* ---------- Announcement bar ------------------------------
+   Full-bleed strip above the header. Unlike the header it keeps its
+   own background, so it reads as a band across the top of the page.
+   ---------------------------------------------------------- */
 
 .topbar {
-  position: relative;
-  z-index: 9;
-  display: flex;
-  align-items: center;
-  min-height: 46px;
-  padding: 12px 0;
-  background: var(--surface-deep);
+  padding: 5px 0;
+  text-align: center;
+  background: var(--gradient-announce);
 }
 
-@media (min-width: 768px) {
-  .topbar {
-    padding: 10px;
-  }
-}
-
-.topbar__inner {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-@media (min-width: 768px) {
-  .topbar__inner {
-    flex-direction: row;
-    align-items: center;
-  }
-}
-
-.topbar__left {
-  display: none;
-}
-
-@media (min-width: 1200px) {
-  .topbar__left {
-    display: block;
-  }
-}
-
-.topbar__links {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 30px;
-  width: 100%;
-  line-height: 1;
-  margin-bottom: 0;
-}
-
-@media (min-width: 768px) {
-  .topbar__links {
-    width: auto;
-    justify-content: flex-end;
-  }
-}
-
-.topbar__links li {
-  margin: 0;
-  line-height: 1;
-}
-
-.topbar__links a {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
+.topbar__text {
+  display: block;
   font-size: var(--fs-meta);
-  line-height: 1;
-  color: var(--text-primary);
+  line-height: 1.4;
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.01em;
+  color: #ffffff;
 }
 
-.topbar__links a:hover {
-  color: var(--text-accent);
+.topbar__link {
+  display: block;
+  color: inherit;
 }
 
-.topbar__links svg {
-  height: 17px;
-}
-
-.topbar__address {
-  display: none;
+.topbar__link:hover .topbar__text {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 @media (min-width: 768px) {
-  .topbar__address {
-    display: block;
+  .topbar__text {
+    font-size: var(--fs-body-sm);
   }
-}
-
-/* Theme switch ------------------------------------------------ */
-
-.theme-switch {
-  display: flex;
-  align-items: center;
-  line-height: 1;
-  cursor: pointer;
-  color: var(--text-primary);
-}
-
-.theme-switch svg {
-  stroke: currentColor;
-  transition: all var(--transition) ease-in-out;
 }
 
 /* ---------- Header ---------------------------------------- */
 
 .site-header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 200;
-  background-color: var(--surface-base);
+  background-color: transparent;
 }
 
 .site-header__inner {
@@ -152,12 +95,6 @@
   width: 100%;
   max-width: 200px;
   height: auto;
-}
-
-/* The artwork is near-white for the dark theme; the light theme flips it to
-   near-black rather than shipping a second file. */
-[data-theme="light"] .site-logo img {
-  filter: invert(1);
 }
 
 /* ---------- Primary navigation ---------------------------- */

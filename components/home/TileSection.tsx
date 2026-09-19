@@ -6,6 +6,8 @@ type Tile = {
   icon: string;
   text: string;
   href?: string;
+  /** Anchor target, so links elsewhere can jump straight to this tile. */
+  id?: string;
 };
 
 type Props = {
@@ -88,11 +90,11 @@ export default function TileSection({
             );
 
             return item.href && isBuiltHref(item.href) ? (
-              <Link className="tile" href={item.href} key={item.title}>
+              <Link className="tile" href={item.href} key={item.title} id={item.id}>
                 {inner}
               </Link>
             ) : (
-              <div className="tile" key={item.title}>
+              <div className="tile" key={item.title} id={item.id}>
                 {inner}
               </div>
             );

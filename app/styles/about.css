@@ -58,10 +58,33 @@
   align-items: center;
 }
 
+/* Text-only rows sit side by side as cards rather than stacking full-width */
+.credentials__list--text {
+  gap: var(--gap-grid);
+}
+
+@media (min-width: 768px) {
+  .credentials__list--text {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+  }
+}
+
+.credentials__list--text .credential {
+  padding: var(--space-xl);
+  background: var(--surface-card);
+  border-radius: var(--radius-md);
+  align-items: start;
+}
+
 @media (min-width: 992px) {
   .credential {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-3xl);
+  }
+
+  .credentials__list--text .credential {
+    grid-template-columns: 1fr;
   }
 
   /* Every second row leads with the copy instead of the image */

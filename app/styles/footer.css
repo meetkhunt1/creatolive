@@ -282,9 +282,3 @@
   aspect-ratio: 1 / 1;
   flex-shrink: 0;
 }
-
-/* The social marks are white line art — flip them for the light theme */
-[data-theme="light"] .social-icons img,
-[data-theme="light"] .drawer__social img {
-  filter: invert(100%);
-}

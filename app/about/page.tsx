@@ -7,7 +7,6 @@ import TileSection from "@/components/home/TileSection";
 import Clients from "@/components/home/Clients";
 import CtaBand from "@/components/portfolio/CtaBand";
 import { aboutClosing, aboutIntro, aboutProcess } from "@/lib/about-content";
-import { coreValues } from "@/lib/home-content";
 
 export const metadata: Metadata = {
   title: "About | Creatolive",
@@ -45,16 +44,14 @@ export default function AboutPage() {
         surface="deep"
       />
 
-      <TileSection
-        title={coreValues.title}
-        description={coreValues.description}
-        items={coreValues.items}
-      />
+      {/* "Our Core Values" — taken off this page; it still runs on the home
+          page, where it is not preceded by the process tiles. */}
 
       {/* "Our Team" — hidden until there are real names and photos. */}
       {/* <TeamGrid /> */}
 
-      <Clients />
+      {/* Client logo marquee — placeholder marks, see app/page.tsx. */}
+      {/* <Clients /> */}
 
       <CtaBand
         title={aboutClosing.title}

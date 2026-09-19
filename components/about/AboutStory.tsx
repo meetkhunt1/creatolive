@@ -1,12 +1,15 @@
 import { aboutStory } from "@/lib/about-content";
 import { isBuiltHref } from "@/lib/routes";
 
-/** Founding story: copy on the left, team photo on the right. */
+/** Founding story: copy on the left, team photo on the right. Without a
+ *  photo the grid collapses to a single copy column. */
 export default function AboutStory() {
   return (
     <section className="about section-space" id="story">
       <div className="container">
-        <div className="about__grid">
+        <div
+          className={`about__grid${aboutStory.image ? "" : " about__grid--solo"}`}
+        >
           <div className="about__copy">
             <div className="section-header">
               <h4 className="tagline">{aboutStory.tagline}</h4>
@@ -27,15 +30,17 @@ export default function AboutStory() {
             ) : null}
           </div>
 
-          <div className="about__media">
-            <img
-              src={aboutStory.image}
-              alt={aboutStory.title}
-              loading="lazy"
-              width={850}
-              height={450}
-            />
-          </div>
+          {aboutStory.image ? (
+            <div className="about__media">
+              <img
+                src={aboutStory.image}
+                alt={aboutStory.title}
+                loading="lazy"
+                width={850}
+                height={450}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

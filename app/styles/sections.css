@@ -26,68 +26,119 @@
   pointer-events: none;
 }
 
-/* Ambient colour-shifting glow that bleeds up from below */
+/* Ambient brand glow, sized and centred to sit behind the headline */
 .hero::after {
   content: "";
   position: absolute;
-  top: 100%;
+  top: 46%;
   left: 50%;
   z-index: -1;
-  width: 640px;
-  height: 410px;
-  opacity: 0.7;
+  width: min(1100px, 130vw);
+  height: 620px;
+  opacity: 0.45;
+  border-radius: var(--radius-round);
   filter: blur(var(--blur-glow));
   background: var(--glow);
   transform: translate(-50%, -50%);
-  animation: glow-cycle 9s linear infinite;
 }
 
+/* A single centred column — pill, headline, supporting line, buttons.
+   `position` lifts it clear of the line-art pattern in .hero::before. */
 .hero__inner {
-  display: grid;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
   align-items: center;
-  gap: var(--space-md);
+  text-align: center;
+  padding-block: calc(var(--page-top-h) + var(--space-xl)) var(--space-2xl);
 }
 
 @media (min-width: 768px) {
   .hero__inner {
-    grid-template-columns: 1fr 1fr;
+    padding-block: calc(var(--page-top-h) + var(--space-2xl)) 100px;
   }
 }
 
-.hero__content {
-  padding-block: var(--space-3xl) var(--space-xl);
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  max-width: 100%;
+  margin-bottom: var(--space-lg);
+  padding: 8px 18px;
+  font-size: var(--fs-body-sm);
+  line-height: 1;
+  font-weight: var(--fw-light);
+  color: var(--text-accent);
+  background: var(--surface-card);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-pill);
 }
 
-@media (min-width: 768px) {
-  .hero__content {
-    padding-right: var(--space-3xl);
-    padding-block: var(--space-3xl);
-  }
+/* Picks up the brand blue, same as the glow behind it. */
+.hero__eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--radius-round);
+  background: var(--glow);
 }
 
 .hero__title {
-  font-size: var(--fs-hero);
-  line-height: var(--lh-hero);
-  font-weight: var(--fw-light);
-  color: var(--text-accent);
+  /* Capped in `ch` so the line count holds as the display size scales, and
+     against 100% so a flex item never outgrows a narrow viewport. */
+  max-width: min(20ch, 100%);
   margin-bottom: 0;
+  font-size: var(--fs-hero-display);
+  line-height: var(--lh-hero-display);
+  font-weight: var(--fw-light);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  text-wrap: balance;
 }
 
 .hero__text {
+  max-width: min(60ch, 100%);
   padding-top: var(--space-md);
   margin-bottom: 0;
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   font-weight: var(--fw-light);
-  color: var(--text-primary);
+  color: var(--text-accent);
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .hero__text {
+    padding-top: var(--space-lg);
+    font-size: 18px;
+    line-height: 30px;
+  }
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .hero__actions {
+    flex-direction: row;
+    margin-top: var(--space-2xl);
+  }
 }
 
 /* Review badges ---------------------------------------------- */
 
 .review-badges {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: var(--space-md);
   padding-top: var(--space-xl);
 }
@@ -154,7 +205,9 @@
   color: var(--text-accent);
 }
 
-/* Hero collage ----------------------------------------------- */
+/* Hero collage ------------------------------------------------
+   Styles for the parked HeroCollage component — see the note in
+   components/home/HeroCollage.tsx. Nothing renders these today. */
 
 .hero__collage {
   position: relative;
@@ -468,6 +521,29 @@
   }
 }
 
+/* No image to pair with — one centred column instead of a half-empty row */
+.about__grid--solo {
+  text-align: center;
+}
+
+/* .block-title sets text-align itself, so inheriting is not enough */
+.about__grid--solo .tagline,
+.about__grid--solo .block-title {
+  text-align: center;
+}
+
+.about__grid--solo .btn-row {
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .about__grid--solo {
+    grid-template-columns: minmax(0, 46rem);
+    justify-content: center;
+  }
+}
+
 .about__copy {
   order: 2;
 }
@@ -689,15 +765,6 @@
     var(--img-noise);
 }
 
-[data-theme="light"] .blog {
-  background: linear-gradient(
-      0deg,
-      rgba(248, 248, 248, 0.94),
-      rgba(248, 248, 248, 0.94)
-    ),
-    var(--img-noise);
-}
-
 .blog::before {
   content: "";
   position: absolute;
@@ -709,7 +776,6 @@
   opacity: 0.7;
   filter: blur(var(--blur-glow));
   background: var(--glow);
-  animation: glow-cycle 9s linear infinite;
 }
 
 .blog__head {

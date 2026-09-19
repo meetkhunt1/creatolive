@@ -38,6 +38,15 @@ export const brand = {
   awardBadge: null as { src: string; alt: string; href: string } | null,
 };
 
+/* ---------- Announcement bar ------------------------------ */
+
+/** The strip above the header. Set to null to remove the bar entirely; give
+ *  it an `href` to make the whole line clickable. */
+export const announcement = {
+  text: "Web, apps, SEO and paid media — run as one system, not separate line items",
+  href: "/services",
+} as { text: string; href?: string } | null;
+
 export const socials = [
   {
     label: "Instagram",
@@ -149,15 +158,17 @@ export const resourcesMegaMenu = {
 /* ---------- Hero ------------------------------------------ */
 
 export const hero = {
+  /** Small pill above the headline. Set to null to drop it. Keep the claim to
+   *  something the site can stand behind — it is the first thing read. */
+  eyebrow: "Building for growing brands since 2020" as string | null,
   title: "Result-Oriented Digital Marketing and Development",
   text: "Welcome to Creatolive 👋 we're a result-oriented agency that focuses on custom work across web development, mobile apps, SEO and paid media.",
   primaryCta: { label: "Start a Project", href: "/contact" },
   secondaryCta: { label: "Schedule a Call", href: "/contact" },
-  // PLACEHOLDER counts — set these to your real review totals.
-  badges: [
-    { platform: "google" as const, icon: "/icons/google.svg", label: "GOOGLE REVIEWS" },
-    { platform: "clutch" as const, icon: "/icons/clutch-review.svg", label: "CLUTCH REVIEWS" },
-  ],
+  /** Review badges are off until there are real ratings to point at. Add an
+   *  entry here — e.g. { platform: "google", icon: "/icons/google.svg",
+   *  label: "GOOGLE REVIEWS" } — and the hero renders the row again. */
+  badges: [] as { platform: "google" | "clutch"; icon: string; label: string }[],
   /* Two drifting columns of work screenshots. PLACEHOLDER imagery. */
   collage: {
     columnA: [
@@ -350,8 +361,9 @@ export const about = {
   title: "Meet the Team at Creatolive",
   html:
     "<p>We're committed to being one of the most dependable growth partners our clients work with. Delivering exceptional results takes senior specialists rather than generalists, which is why our team sits at the heart of everything we do. Learn more about the people behind our work on our <a href=\"/about\">About page</a>.</p>",
-  // PLACEHOLDER — swap for a photo of the Creatolive team (850 × 450).
-  image: "/img/team-placeholder.svg",
+  /** Set a real team photo here (850 x 450) and the section lays itself out
+   *  as copy + image again; null keeps it as a single copy column. */
+  image: null as string | null,
   primaryCta: { label: "About Us", href: "/about" },
   secondaryCta: { label: "Our Services", href: "/services" },
 };
@@ -566,15 +578,12 @@ export const footer = {
     {
       heading: "Services",
       twoUp: false,
-      /** Detail pages are unbuilt, so the hub link stands in for the whole
-       *  column until they exist — see lib/routes.ts. */
-      links: [
-        { label: "All Services", href: "/services" },
-        ...serviceCatalog.map((service) => ({
-          label: service.name,
-          href: `/services/${service.slug}`,
-        })),
-      ],
+      /** Detail pages are unbuilt, so each service points at its own tile on
+       *  the hub page instead of a `/services/<slug>` 404 — see lib/routes.ts. */
+      links: serviceCatalog.map((service) => ({
+        label: service.name,
+        href: `/services#${service.slug}`,
+      })),
     },
     {
       heading: "Industries",

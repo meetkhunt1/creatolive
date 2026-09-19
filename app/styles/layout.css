@@ -131,22 +131,6 @@
 
 /* ---------- Shared keyframes ------------------------------ */
 
-/* Ambient colour-cycling glow behind the hero / blog band */
-@keyframes glow-cycle {
-  0% {
-    background: #10a3a8;
-  }
-  33% {
-    background: #7c32db;
-  }
-  66% {
-    background: #891c53;
-  }
-  100% {
-    background: #10a3a8;
-  }
-}
-
 /* Endless horizontal travel — marquee text + logo rails */
 /* One copy per animated track (the logo rail duplicates the track itself) */
 @keyframes marquee-x {

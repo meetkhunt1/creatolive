@@ -20,7 +20,9 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   // Per-service detail pages are not built yet, so tiles carry no href and
   // render as plain cards. Adding the route later is all it takes to link them.
+  // The slug id is the anchor the footer's service links jump to.
   const serviceTiles = serviceCatalog.map((service) => ({
+    id: service.slug,
     title: service.name,
     icon: service.icon,
     text: service.detail ? `${service.summary} ${service.detail}` : service.summary,
@@ -57,7 +59,8 @@ export default function ServicesPage() {
         surface="deep"
       />
 
-      <Clients />
+      {/* Client logo marquee — placeholder marks, see app/page.tsx. */}
+      {/* <Clients /> */}
       <Faq variant="plain" />
 
       <CtaBand

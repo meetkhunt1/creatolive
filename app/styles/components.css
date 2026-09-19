@@ -26,6 +26,29 @@
   }
 }
 
+/* Large pill for the centred hero. Declared after the .btn media query above
+   so it can shed the shared 220px cap and fixed width. */
+.btn--hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  width: auto;
+  max-width: none;
+  padding: 16px 32px;
+  font-size: var(--fs-body);
+  line-height: 1;
+  border-radius: var(--radius-pill);
+}
+
+.btn--hero svg {
+  transition: transform var(--transition) ease-in-out;
+}
+
+.btn--hero:hover svg {
+  transform: translateX(4px);
+}
+
 /* Filled — accent background, dark label */
 .btn--primary {
   color: var(--text-on-accent);
@@ -274,6 +297,8 @@
   padding: 36px 25px;
   background: var(--surface-card);
   border-radius: var(--radius-md);
+  /* Anchored tiles clear the sticky header when jumped to from the footer. */
+  scroll-margin-top: 110px;
 }
 
 @media (min-width: 768px) {
@@ -365,11 +390,4 @@ a.tile {
 
 a.tile:hover .tile__title {
   color: var(--text-accent);
-}
-
-/* Icons are line-art on dark; invert them for the light theme */
-[data-theme="light"] .tile__icon img,
-[data-theme="light"] .logo-rail img,
-[data-theme="light"] .platform-rail img {
-  filter: invert(100%);
 }
