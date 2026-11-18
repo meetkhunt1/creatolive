@@ -60,7 +60,7 @@ export default function TileSection({
     >
       <div className="container">
         <div className="section-header section-header--center">
-          {tagline ? <h4 className="tagline">{tagline}</h4> : null}
+          {tagline ? <p className="tagline">{tagline}</p> : null}
           <h2 className="title">{title}</h2>
           {description ? <p className="description">{description}</p> : null}
         </div>
@@ -81,7 +81,7 @@ export default function TileSection({
                   <div className="tile__icon">
                     <img src={item.icon} alt="" loading="lazy" />
                   </div>
-                  <h4 className="tile__title">{item.title}</h4>
+                  <h3 className="tile__title">{item.title}</h3>
                 </div>
                 <div className="tile__body">
                   <p>{item.text}</p>

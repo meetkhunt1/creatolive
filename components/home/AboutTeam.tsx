@@ -10,7 +10,7 @@ export default function AboutTeam() {
         <div className={`about__grid${about.image ? "" : " about__grid--solo"}`}>
           <div className="about__copy">
             <div className="section-header">
-              <h4 className="tagline">{about.tagline}</h4>
+              <p className="tagline">{about.tagline}</p>
               <h2 className="block-title">{about.title}</h2>
               <div
                 className="about__text"

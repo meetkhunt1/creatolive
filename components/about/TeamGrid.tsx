@@ -20,7 +20,7 @@ export default function TeamGrid() {
     <section className="team section-space" id="team">
       <div className="container">
         <div className="section-header section-header--center">
-          <h4 className="tagline">{aboutTeamGrid.tagline}</h4>
+          <p className="tagline">{aboutTeamGrid.tagline}</p>
           <h2 className="title">{aboutTeamGrid.title}</h2>
           <p className="description">{aboutTeamGrid.description}</p>
         </div>

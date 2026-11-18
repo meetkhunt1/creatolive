@@ -8,7 +8,7 @@ export default function Simplify() {
       <div className="container">
         <div className="section-header-split">
           <div className="section-header">
-            <h4 className="tagline">{simplify.tagline}</h4>
+            <p className="tagline">{simplify.tagline}</p>
             <h2 className="title">{simplify.title}</h2>
           </div>
           <div>
@@ -23,7 +23,7 @@ export default function Simplify() {
                 <div className="tile__icon">
                   <img src={item.icon} alt="" loading="lazy" />
                 </div>
-                <h4 className="tile__title">{item.title}</h4>
+                <h3 className="tile__title">{item.title}</h3>
               </div>
               <div className="tile__body">
                 <p>{item.text}</p>

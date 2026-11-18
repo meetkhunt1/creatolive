@@ -12,7 +12,7 @@ export default function AboutCredentials() {
     <section className="credentials section-space">
       <div className="container">
         <div className="section-header section-header--center">
-          <h4 className="tagline">{aboutCredentials.tagline}</h4>
+          <p className="tagline">{aboutCredentials.tagline}</p>
           <h2 className="title">{aboutCredentials.title}</h2>
         </div>
 

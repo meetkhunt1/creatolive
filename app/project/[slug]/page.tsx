@@ -1,4 +1,12 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  absoluteUrl,
+  breadcrumbSchema,
+  orgRef,
+  pageMetadata,
+  websiteRef,
+} from "@/lib/site";
 import { notFound } from "next/navigation";
 import CtaBand from "@/components/portfolio/CtaBand";
 import { getProject, projects } from "@/lib/portfolio-content";
@@ -13,11 +21,19 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
-  if (!project) return { title: "Project not found | Creatolive" };
+  if (!project) return { title: "Project not found", robots: { index: false } };
 
-  return {
-    title: `${project.title} | Creatolive`,
+  const meta = pageMetadata({
+    title: `${project.title} Case Study — ${project.services[0]}`,
     description: project.summary,
+    path: `/project/${project.slug}`,
+    type: "article",
+  });
+  const image = project.heroImage ?? project.thumb;
+  return {
+    ...meta,
+    openGraph: { ...meta.openGraph, images: [{ url: image, alt: project.title }] },
+    twitter: { ...meta.twitter, images: [image] },
   };
 }
 
@@ -28,16 +44,45 @@ export default async function ProjectPage({ params }: Params) {
 
   const [overview, detail] = project.sections;
 
+  const url = absoluteUrl(`/project/${project.slug}`);
+
   return (
     <>
+      <JsonLd
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            "@id": `${url}#casestudy`,
+            name: `${project.title} case study`,
+            headline: `${project.title}: ${project.services[0]}`,
+            description: project.summary,
+            url,
+            image: absoluteUrl(project.heroImage ?? project.thumb),
+            inLanguage: "en-IN",
+            creator: orgRef,
+            publisher: orgRef,
+            isPartOf: websiteRef,
+            keywords: [...project.services, ...project.industries].join(", "),
+            about: project.industries.map((name) => ({ "@type": "Thing", name })),
+            ...(project.liveUrl
+              ? { mentions: { "@type": "WebSite", name: project.title, url: project.liveUrl } }
+              : {}),
+          },
+          breadcrumbSchema([
+            { name: "Portfolio", path: "/portfolio" },
+            { name: project.title, path: `/project/${project.slug}` },
+          ]),
+        ]}
+      />
       {/* ---------- Banner ---------- */}
       <section className="project-banner">
         <div className="container">
           <div className="project-banner__inner">
             <div className="project-banner__header">
-              <h4 className="project-banner__eyebrow">
+              <p className="project-banner__eyebrow">
                 {project.services[0]}
-              </h4>
+              </p>
               <h1 className="project-banner__title">{project.title}</h1>
             </div>
 
@@ -71,7 +116,7 @@ export default async function ProjectPage({ params }: Params) {
             <div className="project-slab__grid">
               <div>
                 {overview.eyebrow ? (
-                  <h4 className="project-slab__eyebrow">{overview.eyebrow}</h4>
+                  <p className="project-slab__eyebrow">{overview.eyebrow}</p>
                 ) : null}
                 <h2 className="project-slab__title">{overview.title}</h2>
               </div>
@@ -110,7 +155,7 @@ export default async function ProjectPage({ params }: Params) {
                 ) : null}
 
                 <div className="tag-links">
-                  <h4 className="tag-links__heading">What we did</h4>
+                  <h3 className="tag-links__heading">What we did</h3>
                   <div className="tag-links__list">
                     {/* Service pages are not built yet, so these read as tags. */}
                     {project.services.map((service) => (
@@ -122,7 +167,7 @@ export default async function ProjectPage({ params }: Params) {
 
               <div>
                 {detail.eyebrow ? (
-                  <h4 className="project-slab__eyebrow">{detail.eyebrow}</h4>
+                  <p className="project-slab__eyebrow">{detail.eyebrow}</p>
                 ) : null}
                 <h2 className="project-slab__title">{detail.title}</h2>
 

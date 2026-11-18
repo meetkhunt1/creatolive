@@ -22,7 +22,7 @@ export default function BlogCarousel() {
       <div className="container">
         <div className="blog__head">
           <div className="section-header">
-            <h4 className="tagline">{blog.tagline}</h4>
+            <p className="tagline">{blog.tagline}</p>
             <h2 className="title">{blog.title}</h2>
           </div>
 

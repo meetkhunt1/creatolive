@@ -53,7 +53,7 @@ function ServicesMenu() {
       <div className="megamenu__wrap">
         <div className="grid-1-2">
           <div className="section-header">
-            <h4 className="tagline">{servicesMegaMenu.title}</h4>
+            <p className="tagline">{servicesMegaMenu.title}</p>
             <p className="description">{servicesMegaMenu.description}</p>
           </div>
 
@@ -123,7 +123,7 @@ function ResourcesMenu() {
                   {keepBuilt(col.items).map((item) => (
                     <Link key={item.title} href={item.href}>
                       <img src={item.image} alt="" loading="lazy" />
-                      <h4>{item.title}</h4>
+                      <span className="featured-list__title">{item.title}</span>
                     </Link>
                   ))}
                 </div>

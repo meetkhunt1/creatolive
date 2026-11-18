@@ -1027,7 +1027,13 @@
   margin-bottom: 0;
 }
 
-.faq--plain .faq-item__title {
+.faq--plain .faq-item__heading {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.faq-item__title {
+  display: block;
   font-size: var(--fs-card-title);
   line-height: var(--lh-body);
 }

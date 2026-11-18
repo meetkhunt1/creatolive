@@ -12,7 +12,7 @@ export default function AboutStory() {
         >
           <div className="about__copy">
             <div className="section-header">
-              <h4 className="tagline">{aboutStory.tagline}</h4>
+              <p className="tagline">{aboutStory.tagline}</p>
               <h2 className="block-title">{aboutStory.title}</h2>
               <div className="about__text">
                 {aboutStory.paragraphs.map((text) => (

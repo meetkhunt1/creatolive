@@ -171,3 +171,17 @@
     transform: translateY(0);
   }
 }
+
+/* ---------- 404 page ------------------------------------- */
+
+.not-found__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.not-found__links a {
+  color: var(--text-accent);
+  text-decoration: underline;
+}

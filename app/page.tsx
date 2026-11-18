@@ -11,11 +11,28 @@ import Testimonials from "@/components/home/Testimonials";
 import BlogCarousel from "@/components/home/BlogCarousel";
 import Marquee from "@/components/home/Marquee";
 import Faq from "@/components/home/Faq";
-import { coreValues, services } from "@/lib/home-content";
+import JsonLd from "@/components/seo/JsonLd";
+import { coreValues, faq, services } from "@/lib/home-content";
+import { faqSchema, pageMetadata, webPageSchema, defaultDescription } from "@/lib/site";
+
+const title = "Digital Marketing & Web Development Agency in Rajkot | Creatolive";
+
+export const metadata = pageMetadata({
+  title,
+  absoluteTitle: true,
+  description: defaultDescription,
+  path: "/",
+});
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd
+        data={[
+          webPageSchema({ path: "/", name: title, description: defaultDescription }),
+          faqSchema(faq.items),
+        ]}
+      />
       <Hero />
 
       {/* "Experts in leading web platforms" — taken off the page. */}

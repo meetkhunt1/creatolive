@@ -37,20 +37,26 @@ export default function Faq({
                   className={`faq-item${isOpen ? " is-open" : ""}`}
                   key={item.question}
                 >
-                  <button
-                    type="button"
-                    className="faq-item__trigger"
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                  >
-                    <h5 className="faq-item__title">{item.question}</h5>
-                    <span className="faq-item__icon">
-                      <ChevronDownIcon />
-                    </span>
-                  </button>
+                  <h3 className="faq-item__heading">
+                    <button
+                      type="button"
+                      id={`${panelId}-trigger`}
+                      className="faq-item__trigger"
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => setOpenIndex(isOpen ? null : index)}
+                    >
+                      <span className="faq-item__title">{item.question}</span>
+                      <span className="faq-item__icon">
+                        <ChevronDownIcon />
+                      </span>
+                    </button>
+                  </h3>
 
-                  <div className="faq-item__panel" id={panelId} role="region">
+                  <div className="faq-item__panel" id={panelId}
+                    role="region"
+                    aria-labelledby={`${panelId}-trigger`}
+                  >
                     <div>
                       <div
                         className="faq-item__content"

@@ -13,7 +13,7 @@ function Person({ item }: { item: Item }) {
       <span>
         <img src={item.avatar} alt={item.name} loading="lazy" width={100} height={100} />
       </span>
-      <h4 className="testimonial__name">{item.name}</h4>
+      <p className="testimonial__name">{item.name}</p>
       <span className="testimonial__role">
         <a href={item.companyHref} target="_blank" rel="noreferrer">
           <span>{item.role}</span>
@@ -46,7 +46,7 @@ export default function Testimonials() {
     <section className="testimonials section-space" id="testimonials">
       <div className="container">
         <div className="section-header section-header--center">
-          <h4 className="tagline">{testimonials.tagline}</h4>
+          <p className="tagline">{testimonials.tagline}</p>
           <h2 className="title">{testimonials.title}</h2>
           <p className="description">{testimonials.description}</p>
         </div>

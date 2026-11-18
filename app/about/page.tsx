@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadcrumbSchema, pageMetadata, webPageSchema } from "@/lib/site";
 import AboutStats from "@/components/about/AboutStats";
 import AboutStory from "@/components/about/AboutStory";
 import AboutCredentials from "@/components/about/AboutCredentials";
@@ -8,20 +10,30 @@ import Clients from "@/components/home/Clients";
 import CtaBand from "@/components/portfolio/CtaBand";
 import { aboutClosing, aboutIntro, aboutProcess } from "@/lib/about-content";
 
-export const metadata: Metadata = {
-  title: "About | Creatolive",
-  description:
-    "Creatolive is a growth studio building websites, apps and campaigns for ambitious brands. Meet the team and see how we work.",
-};
+const description =
+  "Creatolive is a Rajkot-based growth studio building websites, apps and campaigns for ambitious brands since 2020. See who we are and how we work.";
+
+export const metadata: Metadata = pageMetadata({
+  title: "About Creatolive — Digital Agency in Rajkot, India",
+  absoluteTitle: true,
+  description,
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          webPageSchema({ path: "/about", name: "About Creatolive", description, type: "AboutPage" }),
+          breadcrumbSchema([{ name: "About", path: "/about" }]),
+        ]}
+      />
       <section className="page-intro">
         <div className="container">
           <div className="page-intro__grid">
             <div>
-              <h4 className="tagline">{aboutIntro.tagline}</h4>
+              <p className="tagline">{aboutIntro.tagline}</p>
               <h1 className="title page-intro__title">{aboutIntro.title}</h1>
               {aboutIntro.paragraphs.map((text) => (
                 <p key={text.slice(0, 28)}>{text}</p>

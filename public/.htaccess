@@ -1,32 +1,106 @@
 # ============================================================
-# Apache config for the static export on Hostinger.
+# Apache / LiteSpeed config for the static export on Hostinger.
 # Lives in /public so `next build` copies it to the root of /out,
 # which becomes the root of the deploy branch and public_html.
 # ============================================================
 
-ErrorDocument 404 /404.html
+AddDefaultCharset UTF-8
+Options -Indexes -MultiViews
 DirectoryIndex index.html
 
-# ------------------------------------------------------------
-# Clean URLs. The export writes about.html, services.html, and
-# project/aavilo.html; links point at /about, /services and
-# /project/aavilo. This maps one to the other with no redirect,
-# so there is a single canonical URL per page.
-# ------------------------------------------------------------
+# The exported 404 page carries <meta name="robots" content="noindex">.
+ErrorDocument 404 /404.html
+ErrorDocument 410 /404.html
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteBase /
+
+  # ----------------------------------------------------------
+  # 1. One canonical origin: https://creatolive.com
+  #    (http and www both 301 here in a single hop).
+  # ----------------------------------------------------------
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://creatolive.com%{REQUEST_URI} [R=301,L,NE]
+
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://creatolive.com%{REQUEST_URI} [R=301,L,NE]
+
+  # ----------------------------------------------------------
+  # 2. Spam left behind by the 2026 Japanese keyword hack.
+  #    410 Gone tells Google to drop these URLs faster than a
+  #    404. They must stay crawlable (no robots.txt block) so
+  #    Google can see the 410.
+  # ----------------------------------------------------------
+
+  # The site is a static export — no PHP exists, so any .php URL
+  # (hiroshi.php, item.php, index.php, wp-login.php …) is spam or a probe.
+  RewriteRule \.php$ - [G,L]
+
+  # URLs containing Japanese characters (UTF-8 lead bytes E3–E9),
+  # in the path or the query string.
+  RewriteCond %{THE_REQUEST} %E[3-9] [NC]
+  RewriteRule ^ - [G,L]
+
+  # Extra sitemaps / feeds the hack may have submitted. Only
+  # /sitemap.xml is real.
+  RewriteCond %{REQUEST_URI} !^/sitemap\.xml$
+  RewriteRule \.xml$ - [G,L]
+
+  # Leftover WordPress paths from the old site.
+  RewriteRule ^(wp-admin|wp-content|wp-includes|wp-json|feed|comments|xmlrpc|category|tag|author|page)(/|$) - [G,L]
+
+  # ----------------------------------------------------------
+  # 3. Legacy URLs from the previous site -> current pages (301).
+  #    Targets are absolute so a redirect never drops to http.
+  # ----------------------------------------------------------
+  RewriteRule ^contact-us/?$ https://creatolive.com/contact [R=301,L]
+  RewriteRule ^about-us/?$ https://creatolive.com/about [R=301,L]
+  RewriteRule ^(home|index\.html?)/?$ https://creatolive.com/ [R=301,L]
+  RewriteRule ^services/.+$ https://creatolive.com/services [R=301,L]
+  RewriteRule ^(portfolio|projects|our-work|work)/.+$ https://creatolive.com/portfolio [R=301,L]
+  RewriteRule ^project/?$ https://creatolive.com/portfolio [R=301,L]
+
+  # Old blog, careers and industry pages are not rebuilt yet.
+  RewriteRule ^(blog|careers|testimonials|packages|industry)(/.*)?$ - [G,L]
+
+  # ----------------------------------------------------------
+  # 4. Clean URLs. The export writes about.html; links point at
+  #    /about. Visible .html and trailing slashes 301 to the clean
+  #    form, so every page has exactly one URL.
+  # ----------------------------------------------------------
+
+  # /about.html -> /about   (checked against the original request,
+  # so the internal rewrite below cannot loop back into it)
+  RewriteCond %{THE_REQUEST} \s/+([^?\s]+?)\.html[\s?] [NC]
+  RewriteCond %1 !^404$
+  RewriteRule ^ https://creatolive.com/%1 [R=301,L,NE]
+
+  # /about/ -> /about   (real directories excluded)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ https://creatolive.com/$1 [R=301,L]
 
   # Anything that exists on disk is served as-is.
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # /about and /about/ both serve about.html when that file exists.
-  RewriteCond %{REQUEST_FILENAME}.html -f
-  RewriteRule ^(.+?)/?$ $1.html [L]
+  # /about serves about.html. Checked against DOCUMENT_ROOT rather than
+  # REQUEST_FILENAME: the latter collapses /services/x to /services,
+  # finds services.html and rewrites forever (the old 500 error).
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.+)$ $1.html [L]
 </IfModule>
 
 <IfModule mod_headers.c>
+  # Security headers.
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+
   # Files under /_next/static carry a content hash in their name, so a new
   # build produces a new URL — they can be cached indefinitely.
   SetEnvIf Request_URI "^/_next/static/" LONG_CACHE
@@ -41,15 +115,28 @@ DirectoryIndex index.html
   <FilesMatch "\.html$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
+
+  # about.txt, index.txt … are Next.js navigation payloads, not pages.
+  # Keep them out of search results; robots.txt and llms*.txt stay indexable.
+  <FilesMatch "^(?!robots|llms).*\.txt$">
+    Header set X-Robots-Tag "noindex, nofollow"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType text/plain .txt
+  AddType application/xml .xml
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
 </IfModule>
 
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
-  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE application/javascript application/json application/xml
   AddOutputFilterByType DEFLATE image/svg+xml
 </IfModule>
 
 # Don't serve the repo's own files if they ever end up in public_html.
-<FilesMatch "^(package(-lock)?\.json|tsconfig\.json|\.gitignore)$">
+<FilesMatch "^(package(-lock)?\.json|tsconfig\.json|\.gitignore|\.env.*|.*\.md)$">
   Require all denied
 </FilesMatch>

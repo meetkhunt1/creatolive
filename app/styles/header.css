@@ -282,7 +282,8 @@
   flex-shrink: 0;
 }
 
-.featured-list h4 {
+.featured-list__title {
+  display: block;
   font-size: var(--fs-meta);
   line-height: 18px;
   font-weight: var(--fw-regular);

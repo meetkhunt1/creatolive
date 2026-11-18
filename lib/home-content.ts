@@ -53,8 +53,10 @@ export const socials = [
     href: "https://www.instagram.com/creato_live/",
     icon: "/img/instagram.svg",
   },
-  { label: "Facebook", href: "#", icon: "/img/facebook.svg" },
-  { label: "LinkedIn", href: "#", icon: "/img/linkedin.svg" },
+  // Facebook and LinkedIn are left out until the pages exist — an empty "#"
+  // link is a dead end for visitors and a broken sameAs signal for search.
+  // { label: "Facebook", href: "https://www.facebook.com/...", icon: "/img/facebook.svg" },
+  // { label: "LinkedIn", href: "https://www.linkedin.com/company/...", icon: "/img/linkedin.svg" },
 ];
 
 /* ---------- Navigation ------------------------------------ */
@@ -509,8 +511,23 @@ export const marqueeItems = serviceLabels;
 /* ---------- FAQ ------------------------------------------ */
 
 export const faq = {
-  title: "FAQ",
+  title: "Frequently Asked Questions",
   items: [
+    {
+      question: "What does Creatolive do?",
+      html: `<p>Creatolive is a digital marketing and development agency. We offer four services, run by specialists and planned together rather than as separate line items:</p>
+        <ol>
+          <li><strong>Website development:</strong> custom WordPress, Shopify and bespoke builds.</li>
+          <li><strong>Mobile app development:</strong> cross-platform Flutter apps for iOS and Android from one codebase.</li>
+          <li><strong>Search engine optimization (SEO):</strong> technical, on-page, off-page and local SEO with a content strategy.</li>
+          <li><strong>Meta Ads:</strong> Facebook and Instagram campaigns with creative testing and funnel tracking, reported against revenue.</li>
+        </ol>`,
+    },
+    {
+      question: "Where is Creatolive based, and do you work with clients outside India?",
+      html: `<p>Creatolive is based in Rajkot, Gujarat, India, and has been building for growing brands since 2020. We work with businesses across India and with international clients remotely — our portfolio includes ecommerce brands in the United States as well as Indian businesses.</p>
+        <p>Projects are run over video calls, shared project boards and email, so location does not change how we work. <a href="/contact">Get in touch</a> to discuss your project.</p>`,
+    },
     {
       question: "What sets Creatolive apart from other agencies?",
       html: `<p>Three things distinguish us from most agencies:</p>

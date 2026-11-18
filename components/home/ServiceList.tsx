@@ -9,7 +9,7 @@ export default function ServiceList() {
       <div className="container">
         <div className="section-header-split">
           <div className="section-header">
-            <h4 className="tagline">{serviceList.tagline}</h4>
+            <p className="tagline">{serviceList.tagline}</p>
             <h2 className="title">{serviceList.title}</h2>
           </div>
           <div>

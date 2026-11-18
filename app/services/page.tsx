@@ -1,4 +1,12 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
+import {
+  absoluteUrl,
+  breadcrumbSchema,
+  orgRef,
+  pageMetadata,
+  webPageSchema,
+} from "@/lib/site";
 import TileSection from "@/components/home/TileSection";
 import Faq from "@/components/home/Faq";
 import Clients from "@/components/home/Clients";
@@ -11,11 +19,14 @@ import {
   servicesProcess,
 } from "@/lib/services-content";
 
-export const metadata: Metadata = {
-  title: "Services | Creatolive",
-  description:
-    "Web development, mobile apps, SEO, paid media, social and brand identity — the services Creatolive runs for growing businesses.",
-};
+const description =
+  "Website development, Flutter mobile apps, SEO and Meta Ads from Creatolive, a digital agency in Rajkot, India. Senior specialists, clear package pricing.";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Services — Web Development, Apps, SEO & Meta Ads",
+  description,
+  path: "/services",
+});
 
 export default function ServicesPage() {
   // Per-service detail pages are not built yet, so tiles carry no href and
@@ -30,6 +41,25 @@ export default function ServicesPage() {
 
   return (
     <>
+      <JsonLd
+        data={[
+          webPageSchema({ path: "/services", name: "Creatolive Services", description }),
+          breadcrumbSchema([{ name: "Services", path: "/services" }]),
+          ...serviceCatalog.map((service) => ({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "@id": `${absoluteUrl("/services")}#${service.slug}`,
+            name: service.name,
+            serviceType: service.name,
+            description: service.detail
+              ? `${service.summary} ${service.detail}`
+              : service.summary,
+            url: `${absoluteUrl("/services")}#${service.slug}`,
+            provider: orgRef,
+            areaServed: [{ "@type": "Country", name: "India" }, { "@type": "Place", name: "Worldwide" }],
+          })),
+        ]}
+      />
       <section className="page-intro">
         <div className="container">
           <div className="page-intro__grid">
