@@ -4,6 +4,7 @@ import TopBar from "@/components/layout/TopBar";
 import SiteHeader from "@/components/layout/SiteHeader";
 import SiteFooter from "@/components/layout/SiteFooter";
 import ScrollTop from "@/components/layout/ScrollTop";
+import MetaPixel from "@/components/layout/MetaPixel";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -45,6 +46,7 @@ export default function RootLayout({
         <main id="main">{children}</main>
         <SiteFooter />
         <ScrollTop />
+        <MetaPixel />
       </body>
     </html>
   );
