@@ -1,0 +1,55 @@
+# ============================================================
+# Apache config for the static export on Hostinger.
+# Lives in /public so `next build` copies it to the root of /out,
+# which becomes the root of the deploy branch and public_html.
+# ============================================================
+
+ErrorDocument 404 /404.html
+DirectoryIndex index.html
+
+# ------------------------------------------------------------
+# Clean URLs. The export writes about.html, services.html, and
+# project/aavilo.html; links point at /about, /services and
+# /project/aavilo. This maps one to the other with no redirect,
+# so there is a single canonical URL per page.
+# ------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Anything that exists on disk is served as-is.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # /about and /about/ both serve about.html when that file exists.
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Files under /_next/static carry a content hash in their name, so a new
+  # build produces a new URL — they can be cached indefinitely.
+  SetEnvIf Request_URI "^/_next/static/" LONG_CACHE
+  Header set Cache-Control "public, max-age=31536000, immutable" env=LONG_CACHE
+
+  # Images and icons keep their filenames across builds, so they get a short
+  # cache instead — replacing a logo shouldn't be invisible for a year.
+  SetEnvIf Request_URI "^/(img|icons)/" SHORT_CACHE
+  Header set Cache-Control "public, max-age=604800" env=SHORT_CACHE
+
+  # HTML must revalidate, or visitors keep seeing a stale deploy.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# Don't serve the repo's own files if they ever end up in public_html.
+<FilesMatch "^(package(-lock)?\.json|tsconfig\.json|\.gitignore)$">
+  Require all denied
+</FilesMatch>

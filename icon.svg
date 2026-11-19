@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Creatolive logo mark. The mark itself is white, so it sits on the brand
+       dark square (the surface-base token) to stay visible on light browser tabs. -->
+  <rect width="512" height="512" rx="112" fill="#18181b"/>
+  <g transform="translate(76 104.125) scale(2.25)" fill="#FEFEFE">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M38.4943 96.2812C38.1352 85.0556 38.4686 73.3708 38.4455 62.0893C38.4217 50.57 42.2073 43.7763 50.8371 40.2126C58.079 37.2219 105.813 38.6796 117.655 38.6796L117.667 0.235033C111.476 0.235033 40.4596 -0.561337 38.0222 0.777749L4.34586 34.3253C1.03575 37.6342 -0.0675134 36.8912 0.00316372 43.133C0.202723 60.8246 0.0167464 78.6292 0.0167464 96.3363L38.4943 96.2812Z"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M38.4941 96.2812L38.6064 134.771H158.789L159.49 134.971L159.309 96.3289L38.4941 96.2812Z"/>
+  </g>
+</svg>
